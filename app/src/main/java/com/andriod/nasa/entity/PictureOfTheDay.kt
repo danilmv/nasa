@@ -7,7 +7,7 @@ data class PictureOfTheDay(
     val explanation: String,
     val hdurl: String,
     @SerializedName("service_name")
-    val mediaType: String,
+    val mediaType: String?,
     @SerializedName("service_version")
     val serviceVersion: String,
     val title: String,

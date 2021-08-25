@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.andriod.nasa.PictureViewModel
 import com.andriod.nasa.databinding.FragmentPictureOfTheDayBinding
+import com.bumptech.glide.Glide
 
 class PictureOfTheDayFragment : Fragment() {
     private var _binding: FragmentPictureOfTheDayBinding? = null
@@ -28,8 +29,17 @@ class PictureOfTheDayFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.makeRequest()
-        viewModel.pictureOfTheDay.observe(viewLifecycleOwner) { picture ->
-            binding.textView.text = picture.explanation
+        binding.apply {
+            viewModel.pictureOfTheDay.observe(viewLifecycleOwner) { picture ->
+                textView.text = picture.explanation
+
+                if (picture.mediaType?.equals("image") == true) {
+                    Glide.with(root)
+                        .load(picture.hdurl)
+                        .centerCrop()
+                        .into(imageView)
+                }
+            }
         }
     }
 }
