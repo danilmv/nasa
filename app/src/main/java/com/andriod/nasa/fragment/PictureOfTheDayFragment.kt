@@ -33,9 +33,9 @@ class PictureOfTheDayFragment : Fragment() {
             viewModel.pictureOfTheDay.observe(viewLifecycleOwner) { picture ->
                 textView.text = picture.explanation
 
-                if (picture.mediaType?.equals("image") == true) {
+                if (picture.isImage) {
                     Glide.with(root)
-                        .load(picture.hdurl)
+                        .load(picture.url)
                         .centerCrop()
                         .into(imageView)
                 }

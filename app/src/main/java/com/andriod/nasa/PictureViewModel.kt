@@ -16,7 +16,7 @@ class PictureViewModel: ViewModel() {
 
     fun makeRequest() {
         if (!isPictureRequested) {
-            service.getPictureOfTheDay().enqueue(object : Callback<PictureOfTheDay> {
+            service.getPictureOfTheDay("2021-08-01").enqueue(object : Callback<PictureOfTheDay> {
                 init {
                     isPictureRequested = true
                 }
