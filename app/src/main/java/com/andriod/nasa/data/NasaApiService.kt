@@ -10,6 +10,6 @@ import retrofit2.http.Query
 interface NasaApiService {
     @GET("planetary/apod?api_key=${BuildConfig.ApiKey}")
     fun getPictureOfTheDay(
-        @Query("date") date: String = Utils.getToday(-5),
+        @Query("date") date: String = Utils.getToday(),
     ): Call<PictureOfTheDay>
 }

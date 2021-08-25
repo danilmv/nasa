@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Nasa</string>
     <string name="picture">picture</string>
+    <string name="today">today</string>
+    <string name="yesterday">yesterday</string>
+    <string name="before_yesterday">before yesterday</string>
 </resources>
