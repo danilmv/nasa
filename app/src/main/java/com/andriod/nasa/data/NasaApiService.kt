@@ -5,7 +5,7 @@ import com.andriod.nasa.entity.PictureOfTheDay
 import retrofit2.Call
 import retrofit2.http.GET
 
-interface PictureOfTheDayService {
+interface NasaApiService {
  @GET("planetary/apod?api_key=${BuildConfig.ApiKey}")
- fun getPicture(): Call<PictureOfTheDay>
+ fun getPictureOfTheDay(): Call<PictureOfTheDay>
 }
