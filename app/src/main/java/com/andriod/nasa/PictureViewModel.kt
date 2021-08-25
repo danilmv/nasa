@@ -12,11 +12,11 @@ class PictureViewModel: ViewModel() {
     private var _pictureOfTheDay = MutableLiveData<PictureOfTheDay>()
     val pictureOfTheDay: LiveData<PictureOfTheDay> = _pictureOfTheDay
     private var isPictureRequested = false
-    private val service by lazy { Initializer.getNasaApiService() }
+    private val service by lazy { Utils.getNasaApiService() }
 
     fun makeRequest() {
         if (!isPictureRequested) {
-            service.getPictureOfTheDay("2021-08-01").enqueue(object : Callback<PictureOfTheDay> {
+            service.getPictureOfTheDay().enqueue(object : Callback<PictureOfTheDay> {
                 init {
                     isPictureRequested = true
                 }
