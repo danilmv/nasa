@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.initialize()
+        viewModel.makeRequest()
         viewModel.pictureOfTheDay.observe(this) { picture ->
             binding.explanationTextView.text = picture.explanation
         }

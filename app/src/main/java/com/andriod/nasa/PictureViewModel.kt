@@ -3,30 +3,18 @@ package com.andriod.nasa
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.andriod.nasa.data.NasaApiService
 import com.andriod.nasa.entity.PictureOfTheDay
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-class PictureViewModel : ViewModel() {
-    private val retrofit: Retrofit by lazy {
-        Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://api.nasa.gov/")
-            .build()
-    }
-    private val service: NasaApiService by lazy {
-        retrofit.create(NasaApiService::class.java)
-    }
-
+class PictureViewModel: ViewModel() {
     private var _pictureOfTheDay = MutableLiveData<PictureOfTheDay>()
     val pictureOfTheDay: LiveData<PictureOfTheDay> = _pictureOfTheDay
     private var isPictureRequested = false
+    private val service by lazy { Initializer.getNasaApiService() }
 
-    fun initialize() {
+    fun makeRequest() {
         if (!isPictureRequested) {
             service.getPictureOfTheDay().enqueue(object : Callback<PictureOfTheDay> {
                 init {
@@ -43,6 +31,7 @@ class PictureViewModel : ViewModel() {
                 }
 
                 override fun onFailure(call: Call<PictureOfTheDay>, t: Throwable) {
+                    isPictureRequested = false
                 }
             })
         }
