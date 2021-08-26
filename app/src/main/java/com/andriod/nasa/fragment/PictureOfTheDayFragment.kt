@@ -1,9 +1,11 @@
 package com.andriod.nasa.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -11,6 +13,7 @@ import com.andriod.nasa.PictureViewModel
 import com.andriod.nasa.R
 import com.andriod.nasa.databinding.FragmentPictureOfTheDayBinding
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 
 class PictureOfTheDayFragment : Fragment() {
@@ -45,7 +48,7 @@ class PictureOfTheDayFragment : Fragment() {
                 imageView.isVisible = picture.isImage
             }
 
-            chipGroup.setOnCheckedChangeListener { chipGroup, position ->
+            chipGroup.setOnCheckedChangeListener { _, _ ->
                 viewModel.requestPicture(
                     when {
                         todayChip.isChecked -> 0
@@ -55,6 +58,22 @@ class PictureOfTheDayFragment : Fragment() {
                     }
                 )
             }
+
+            val bottomSheetBehavior: BottomSheetBehavior<FrameLayout> = BottomSheetBehavior.from(bottomSheetFrameLayout)
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            bottomSheetFrameLayout.setOnClickListener {
+                bottomSheetBehavior.state = when (bottomSheetBehavior.state) {
+                    BottomSheetBehavior.STATE_COLLAPSED -> BottomSheetBehavior.STATE_EXPANDED
+                    BottomSheetBehavior.STATE_EXPANDED -> BottomSheetBehavior.STATE_COLLAPSED
+                    else -> BottomSheetBehavior.STATE_EXPANDED
+                }
+
+                Log.d(TAG, "onViewCreated() called state = ${bottomSheetBehavior.state}")
+            }
         }
+    }
+
+    companion object{
+        const val TAG = "@@PictureFragment"
     }
 }

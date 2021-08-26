@@ -1,6 +1,5 @@
 package com.andriod.nasa
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,7 +14,13 @@ class PictureViewModel : ViewModel() {
     private var pictureRequestedOffset = 1
     private val service by lazy { Utils.getNasaApiService() }
 
+    private val cachePicture = mutableMapOf<Int, PictureOfTheDay?>()
+
     fun requestPicture(offset: Int = 0) {
+        if (cachePicture[offset] != null) {
+            _pictureOfTheDay.postValue(cachePicture[offset])
+            return
+        }
         if (pictureRequestedOffset != offset) {
             pictureRequestedOffset = offset
             service.getPictureOfTheDay(Utils.getToday(offset))
@@ -25,6 +30,7 @@ class PictureViewModel : ViewModel() {
                         response: Response<PictureOfTheDay>,
                     ) {
                         if (response.isSuccessful) {
+                            cachePicture[offset] = response.body()!!
                             _pictureOfTheDay.postValue(response.body())
                         }
                     }
@@ -34,5 +40,6 @@ class PictureViewModel : ViewModel() {
                     }
                 })
         }
+
     }
 }

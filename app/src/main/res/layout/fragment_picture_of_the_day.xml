@@ -1,56 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@color/purple_200">
+    android:background="@color/purple_200"
+    android:orientation="vertical">
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chip_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:singleLine="true"
-        app:singleSelection="true"
+        android:layout_marginStart="@dimen/margin"
         app:checkedChip="@id/today_chip"
         app:selectionRequired="true"
-        android:layout_marginStart="@dimen/margin">
+        app:singleLine="true"
+        app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/today_chip"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:text="@string/today"/>
+            android:text="@string/today" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/yesterday_chip"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:text="@string/yesterday"/>
+            android:text="@string/yesterday" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/before_yesterday_chip"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:text="@string/before_yesterday"/>
+            android:text="@string/before_yesterday" />
     </com.google.android.material.chip.ChipGroup>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/image_view"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/margin"
-        android:layout_weight="10"
-        android:scaleType="center"/>
+        android:layout_weight="9">
 
-    <TextView
-        android:id="@+id/text_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/margin"
-        android:layout_weight="1" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:scaleType="center" />
 
+        <FrameLayout
+            android:id="@+id/bottom_sheet_frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:behavior_hideable="true"
+            app:behavior_peekHeight="50dp"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+            android:background="@color/teal_200">
+
+                <TextView
+                    android:id="@+id/text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin"/>
+        </FrameLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </LinearLayout>
