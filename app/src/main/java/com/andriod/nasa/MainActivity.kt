@@ -13,19 +13,22 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
 
     private val fragmentPictureOfTheDay by lazy { PictureOfTheDayFragment() }
     private val fragmentSettings by lazy { SettingsFragment() }
+
     private var currentFragment: FragmentTags = FragmentTags.PICTURE
+    private var currentTheme = R.style.Theme_Nasa
 
     private val bottomView: BottomNavigationView by lazy { binding.bottomView }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(Utils.currentTheme)
+        savedInstanceState?.let {
+            currentFragment = FragmentTags.valueOf(it.getString(KEY_CURRENT_FRAGMENT) ?: "PICTURE")
+            currentTheme = it.getInt(KEY_CURRENT_THEME)
+        }
+
+        setTheme(currentTheme)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        savedInstanceState?.let {
-            currentFragment = FragmentTags.valueOf(it.getString(KEY_CURRENT_FRAGMENT) ?: "PICTURE")
-        }
 
         prepareBottomNavigationView()
         showCurrentFragment()
@@ -62,7 +65,7 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
     }
 
     override fun changeTheme(theme: Int) {
-        Utils.currentTheme = theme
+        currentTheme = theme
         recreate()
     }
 
@@ -73,10 +76,12 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
 
         const val TAG = "@@MainActivity"
         const val KEY_CURRENT_FRAGMENT = "current_fragment"
+        const val KEY_CURRENT_THEME = "current_theme"
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(KEY_CURRENT_FRAGMENT, currentFragment.name)
+        outState.putInt(KEY_CURRENT_THEME, currentTheme)
     }
 }

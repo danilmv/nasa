@@ -1,7 +1,6 @@
 package com.andriod.nasa
 
 import android.util.Log
-import androidx.annotation.StyleRes
 import com.andriod.nasa.data.NasaApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -20,8 +19,6 @@ object Utils {
     private val service: NasaApiService by lazy {
         retrofit.create(NasaApiService::class.java)
     }
-
-    @StyleRes var currentTheme: Int = R.style.Theme_Nasa
 
     fun getNasaApiService() = service
 
