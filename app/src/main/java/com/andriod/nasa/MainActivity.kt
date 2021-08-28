@@ -2,7 +2,6 @@ package com.andriod.nasa
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.FragmentManager
@@ -95,7 +94,6 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        Log.d(TAG, "onSaveInstanceState() called with: outState = $outState")
         super.onSaveInstanceState(outState)
         outState.putString(KEY_CURRENT_FRAGMENT, currentFragment.name)
         outState.putInt(KEY_CURRENT_THEME, currentTheme)

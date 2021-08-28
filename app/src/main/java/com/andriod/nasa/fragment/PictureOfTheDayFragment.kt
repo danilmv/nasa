@@ -33,7 +33,6 @@ class PictureOfTheDayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.requestPicture()
         binding.apply {
             viewModel.pictureOfTheDay.observe(viewLifecycleOwner) { picture ->
                 textView.text = picture.explanation
