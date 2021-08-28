@@ -3,61 +3,80 @@ package com.andriod.nasa
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.ViewModelProvider
 import com.andriod.nasa.databinding.ActivityMainBinding
 import com.andriod.nasa.fragment.PictureOfTheDayFragment
 import com.andriod.nasa.fragment.SettingsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
     private lateinit var binding: ActivityMainBinding
 
     private val fragmentPictureOfTheDay by lazy { PictureOfTheDayFragment() }
     private val fragmentSettings by lazy { SettingsFragment() }
+    private var currentFragment: FragmentTags = FragmentTags.PICTURE
 
     private val bottomView: BottomNavigationView by lazy { binding.bottomView }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(Utils.currentTheme)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, fragmentPictureOfTheDay)
-            .commit()
+        savedInstanceState?.let {
+            currentFragment = FragmentTags.valueOf(it.getString(KEY_CURRENT_FRAGMENT) ?: "PICTURE")
+        }
 
         prepareBottomNavigationView()
+        showCurrentFragment()
     }
 
     private fun prepareBottomNavigationView() {
-        bottomView.setOnItemSelectedListener{
-            when(it.itemId){
-                R.id.menu_bottom_item_picture->{
-                    showPicture()
+        bottomView.setOnItemSelectedListener {
+            currentFragment = when (it.itemId) {
+                R.id.menu_bottom_item_picture -> {
+                    FragmentTags.PICTURE
                 }
-                R.id.menu_bottom_item_settings->{
-                    showSettings()
+                R.id.menu_bottom_item_settings -> {
+                    FragmentTags.SETTINGS
                 }
-                else->{ return@setOnItemSelectedListener false}
+                else -> {
+                    return@setOnItemSelectedListener false
+                }
             }
+            showCurrentFragment()
             true
         }
     }
 
-    private fun showPicture() {
+    private fun showCurrentFragment() {
         supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, fragmentPictureOfTheDay)
+            .replace(R.id.main_container,
+                when (currentFragment) {
+                    FragmentTags.PICTURE -> fragmentPictureOfTheDay
+                    FragmentTags.SETTINGS -> fragmentSettings
+                })
             .commit()
     }
 
-    private fun showSettings() {
-        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, fragmentSettings)
-            .commit()
+    override fun changeTheme(theme: Int) {
+        Utils.currentTheme = theme
+        recreate()
     }
 
+    companion object {
+        enum class FragmentTags(val id: Int) {
+            PICTURE(0), SETTINGS(1),
+        }
+
+        const val TAG = "@@MainActivity"
+        const val KEY_CURRENT_FRAGMENT = "current_fragment"
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(KEY_CURRENT_FRAGMENT, currentFragment.name)
+    }
 }
