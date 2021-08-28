@@ -48,17 +48,6 @@ class PictureOfTheDayFragment : Fragment() {
                 imageView.isVisible = picture.isImage
             }
 
-            chipGroup.setOnCheckedChangeListener { _, _ ->
-                viewModel.requestPicture(
-                    when {
-                        todayChip.isChecked -> 0
-                        yesterdayChip.isChecked -> -1
-                        beforeYesterdayChip.isChecked -> -2
-                        else -> 0
-                    }
-                )
-            }
-
             val bottomSheetBehavior: BottomSheetBehavior<FrameLayout> = BottomSheetBehavior.from(bottomSheetFrameLayout)
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetFrameLayout.setOnClickListener {
@@ -69,6 +58,18 @@ class PictureOfTheDayFragment : Fragment() {
                 }
 
                 Log.d(TAG, "onViewCreated() called state = ${bottomSheetBehavior.state}")
+            }
+
+            chipGroup.setOnCheckedChangeListener { _, _ ->
+                viewModel.requestPicture(
+                    when {
+                        todayChip.isChecked -> 0
+                        yesterdayChip.isChecked -> -1
+                        beforeYesterdayChip.isChecked -> -2
+                        else -> 0
+                    }
+                )
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             }
         }
     }
