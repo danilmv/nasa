@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
 
     private var currentFragment: FragmentTags = FragmentTags.PICTURE
     private var currentTheme = R.style.Theme_Nasa
-    private var currentDarkMode = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+    private var isDarkMode = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
 
     private val bottomView: BottomNavigationView by lazy { binding.bottomView }
 
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
         savedInstanceState?.let {
             currentFragment = FragmentTags.valueOf(it.getString(KEY_CURRENT_FRAGMENT) ?: "PICTURE")
             currentTheme = it.getInt(KEY_CURRENT_THEME)
-            currentDarkMode = it.getInt(KEY_CURRENT_DARK_MODE) == 1
+            isDarkMode = it.getInt(KEY_CURRENT_DARK_MODE) == 1
         }
 
         setTheme(currentTheme)
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        changeDarkMode(currentDarkMode)
+        setDarkMode(isDarkMode)
 
         prepareBottomNavigationView()
         showCurrentFragment()
@@ -70,23 +70,19 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
             .commit()
     }
 
-    override fun changeTheme(theme: Int) {
+    override fun setTheme(theme: Int) {
         currentTheme = theme
         recreate()
     }
 
-    override fun changeDarkMode(isDark: Boolean) {
-        currentDarkMode = isDark
-        AppCompatDelegate.setDefaultNightMode(if (isDark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
+    override fun setDarkMode(isDarkMode: Boolean) {
+        this.isDarkMode = isDarkMode
+        AppCompatDelegate.setDefaultNightMode(if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
     }
 
-    override fun requestTheme(): Int {
-        return currentTheme
-    }
+    override fun getThemeId() = currentTheme
 
-    override fun requestDarkMode(): Boolean {
-        return currentDarkMode
-    }
+    override fun isDarkMode() = isDarkMode
 
     companion object {
         enum class FragmentTags(val id: Int) {
@@ -103,6 +99,6 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
         super.onSaveInstanceState(outState)
         outState.putString(KEY_CURRENT_FRAGMENT, currentFragment.name)
         outState.putInt(KEY_CURRENT_THEME, currentTheme)
-        outState.putInt(KEY_CURRENT_DARK_MODE, if(currentDarkMode) 1 else 0)
+        outState.putInt(KEY_CURRENT_DARK_MODE, if (isDarkMode) 1 else 0)
     }
 }

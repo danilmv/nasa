@@ -16,10 +16,10 @@ class SettingsFragment : Fragment() {
     private val contract: Contract by lazy { requireActivity() as MainActivity }
 
     interface Contract {
-        fun changeTheme(theme: Int)
-        fun changeDarkMode(isDark: Boolean)
-        fun requestTheme() : Int
-        fun requestDarkMode(): Boolean
+        fun setTheme(theme: Int)
+        fun setDarkMode(isDark: Boolean)
+        fun getThemeId() : Int
+        fun isDarkMode(): Boolean
     }
 
     override fun onCreateView(
@@ -34,14 +34,14 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            when(contract.requestTheme()){
+            when(contract.getThemeId()){
                 R.style.Theme_Nasa->defaultThemeChip.isChecked = true
                 R.style.Theme_Nasa_Red->redThemeChip.isChecked = true
                 R.style.Theme_Nasa_Green->greenThemeChip.isChecked = true
             }
 
             themesChipGroup.setOnCheckedChangeListener { _, _ ->
-                contract.changeTheme(
+                contract.setTheme(
                     when {
                         defaultThemeChip.isChecked -> R.style.Theme_Nasa
                         redThemeChip.isChecked -> R.style.Theme_Nasa_Red
@@ -51,9 +51,9 @@ class SettingsFragment : Fragment() {
                     })
             }
 
-            darkThemeChip.isChecked = contract.requestDarkMode()
+            darkThemeChip.isChecked = contract.isDarkMode()
             darkThemeChip.setOnCheckedChangeListener{ _, isChecked ->
-                contract.changeDarkMode(isChecked)
+                contract.setDarkMode(isChecked)
             }
         }
     }
