@@ -1,6 +1,6 @@
 package com.andriod.nasa
 
-import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
 
     private var currentFragment: FragmentTags = FragmentTags.PICTURE
     private var currentTheme = R.style.Theme_Nasa
+    private var currentDarkMode = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
 
     private val bottomView: BottomNavigationView by lazy { binding.bottomView }
 
@@ -25,12 +26,15 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
         savedInstanceState?.let {
             currentFragment = FragmentTags.valueOf(it.getString(KEY_CURRENT_FRAGMENT) ?: "PICTURE")
             currentTheme = it.getInt(KEY_CURRENT_THEME)
+            currentDarkMode = it.getInt(KEY_CURRENT_DARK_MODE) == 1
         }
 
         setTheme(currentTheme)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        changeDarkMode(currentDarkMode)
 
         prepareBottomNavigationView()
         showCurrentFragment()
@@ -72,6 +76,7 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
     }
 
     override fun changeDarkMode(isDark: Boolean) {
+        currentDarkMode = isDark
         AppCompatDelegate.setDefaultNightMode(if (isDark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
     }
 
@@ -80,7 +85,7 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
     }
 
     override fun requestDarkMode(): Boolean {
-        return resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+        return currentDarkMode
     }
 
     companion object {
@@ -91,11 +96,13 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
         const val TAG = "@@MainActivity"
         const val KEY_CURRENT_FRAGMENT = "current_fragment"
         const val KEY_CURRENT_THEME = "current_theme"
+        const val KEY_CURRENT_DARK_MODE = "current_dark_mode"
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(KEY_CURRENT_FRAGMENT, currentFragment.name)
         outState.putInt(KEY_CURRENT_THEME, currentTheme)
+        outState.putInt(KEY_CURRENT_DARK_MODE, if(currentDarkMode) 1 else 0)
     }
 }
