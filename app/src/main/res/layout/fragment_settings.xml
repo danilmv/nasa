@@ -16,17 +16,17 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/default_theme_chip"
-            style="@style/my_chip_style"
+            style="@style/MyСhipStyle"
             android:text="@string/chip_default" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/red_theme_chip"
-            style="@style/my_chip_style"
+            style="@style/MyСhipStyle"
             android:text="@string/chip_red" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/green_theme_chip"
-            style="@style/my_chip_style"
+            style="@style/MyСhipStyle"
             android:text="@string/chip_green" />
     </com.google.android.material.chip.ChipGroup>
 

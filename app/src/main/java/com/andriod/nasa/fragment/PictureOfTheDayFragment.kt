@@ -10,7 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.andriod.nasa.PictureViewModel
-import com.andriod.nasa.ScrapYard
+import com.andriod.nasa.Utils
 import com.andriod.nasa.databinding.FragmentPictureOfTheDayBinding
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -60,20 +60,20 @@ class PictureOfTheDayFragment : Fragment() {
             }
 
             chipGroup.setOnCheckedChangeListener { _, _ ->
-                ScrapYard.currentDay = when {
-                    todayChip.isChecked -> 0
-                    yesterdayChip.isChecked -> -1
-                    beforeYesterdayChip.isChecked -> -2
-                    else -> 0
+                Utils.currentDay = when {
+                    todayChip.isChecked -> TODAY
+                    yesterdayChip.isChecked -> YESTERDAY
+                    beforeYesterdayChip.isChecked -> BEFORE_YESTERDAY
+                    else -> TODAY
                 }
-                viewModel.onDateChanged(ScrapYard.currentDay)
+                viewModel.onDateChanged(Utils.currentDay)
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             }
 
-            when (ScrapYard.currentDay) {
-                0 -> todayChip.isChecked = true
-                -1 -> yesterdayChip.isChecked = true
-                -2 -> beforeYesterdayChip.isChecked = true
+            when (Utils.currentDay) {
+                TODAY -> todayChip.isChecked = true
+                YESTERDAY -> yesterdayChip.isChecked = true
+                BEFORE_YESTERDAY -> beforeYesterdayChip.isChecked = true
             }
         }
     }
@@ -85,5 +85,9 @@ class PictureOfTheDayFragment : Fragment() {
 
     companion object {
         const val TAG = "@@PictureFragment"
+
+        const val TODAY = 0
+        const val YESTERDAY = -1
+        const val BEFORE_YESTERDAY = -2
     }
 }

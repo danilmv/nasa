@@ -4,7 +4,7 @@ import android.util.Log
 import java.text.SimpleDateFormat
 import java.util.*
 
-object ScrapYard {
+object Utils {
     private const val TAG = "@@ScrapYard"
 
     var currentDay = 0

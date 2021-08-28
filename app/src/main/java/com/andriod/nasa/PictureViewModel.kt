@@ -27,7 +27,7 @@ class PictureViewModel : ViewModel() {
         }
         if (pictureRequestedOffset != offset) {
             pictureRequestedOffset = offset
-            service.getPictureOfTheDay(ScrapYard.getFormattedDate(offset))
+            service.getPictureOfTheDay(Utils.getFormattedDate(offset))
                 .enqueue(object : Callback<PictureOfTheDay> {
                     override fun onResponse(
                         call: Call<PictureOfTheDay>,

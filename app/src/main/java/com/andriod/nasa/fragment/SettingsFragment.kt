@@ -17,7 +17,7 @@ class SettingsFragment : Fragment() {
 
     interface Contract {
         fun setTheme(theme: Int)
-        fun setDarkMode(isDark: Boolean)
+        fun setDarkMode(isDarkMode: Boolean)
         fun getThemeId() : Int
         fun isDarkMode(): Boolean
     }

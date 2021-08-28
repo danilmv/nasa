@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         savedInstanceState?.let {
-            currentFragment = FragmentTags.valueOf(it.getString(KEY_CURRENT_FRAGMENT) ?: "PICTURE")
+            currentFragment = FragmentTags.valueOf(it.getString(KEY_CURRENT_FRAGMENT)
+                ?: PICTURE_FRAGMENT_TAG_NAME)
             currentTheme = it.getInt(KEY_CURRENT_THEME)
             isDarkMode = it.getInt(KEY_CURRENT_DARK_MODE) == 1
         }
@@ -93,6 +94,8 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
         const val KEY_CURRENT_FRAGMENT = "current_fragment"
         const val KEY_CURRENT_THEME = "current_theme"
         const val KEY_CURRENT_DARK_MODE = "current_dark_mode"
+
+        const val PICTURE_FRAGMENT_TAG_NAME = "PICTURE"
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
