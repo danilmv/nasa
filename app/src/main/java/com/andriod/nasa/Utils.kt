@@ -10,6 +10,8 @@ import java.util.*
 object Utils {
     private const val TAG = "@@Utils"
 
+    var currentDay = 0
+
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())

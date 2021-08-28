@@ -10,11 +10,10 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.andriod.nasa.PictureViewModel
-import com.andriod.nasa.R
+import com.andriod.nasa.Utils
 import com.andriod.nasa.databinding.FragmentPictureOfTheDayBinding
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.chip.Chip
 
 class PictureOfTheDayFragment : Fragment() {
     private var _binding: FragmentPictureOfTheDayBinding? = null
@@ -48,7 +47,8 @@ class PictureOfTheDayFragment : Fragment() {
                 imageView.isVisible = picture.isImage
             }
 
-            val bottomSheetBehavior: BottomSheetBehavior<FrameLayout> = BottomSheetBehavior.from(bottomSheetFrameLayout)
+            val bottomSheetBehavior: BottomSheetBehavior<FrameLayout> =
+                BottomSheetBehavior.from(bottomSheetFrameLayout)
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetFrameLayout.setOnClickListener {
                 bottomSheetBehavior.state = when (bottomSheetBehavior.state) {
@@ -61,20 +61,30 @@ class PictureOfTheDayFragment : Fragment() {
             }
 
             chipGroup.setOnCheckedChangeListener { _, _ ->
-                viewModel.requestPicture(
-                    when {
-                        todayChip.isChecked -> 0
-                        yesterdayChip.isChecked -> -1
-                        beforeYesterdayChip.isChecked -> -2
-                        else -> 0
-                    }
-                )
+                Utils.currentDay = when {
+                    todayChip.isChecked -> 0
+                    yesterdayChip.isChecked -> -1
+                    beforeYesterdayChip.isChecked -> -2
+                    else -> 0
+                }
+                viewModel.requestPicture(Utils.currentDay)
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            }
+
+            when (Utils.currentDay) {
+                0 -> todayChip.isChecked = true
+                -1 -> yesterdayChip.isChecked = true
+                -2 -> beforeYesterdayChip.isChecked = true
             }
         }
     }
 
-    companion object{
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    companion object {
         const val TAG = "@@PictureFragment"
     }
 }
