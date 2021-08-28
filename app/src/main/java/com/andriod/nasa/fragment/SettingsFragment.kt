@@ -17,6 +17,9 @@ class SettingsFragment : Fragment() {
 
     interface Contract {
         fun changeTheme(theme: Int)
+        fun changeDarkMode(isDark: Boolean)
+        fun requestTheme() : Int
+        fun requestDarkMode(): Boolean
     }
 
     override fun onCreateView(
@@ -31,16 +34,26 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+            when(contract.requestTheme()){
+                R.style.Theme_Nasa->defaultThemeChip.isChecked = true
+                R.style.Theme_Nasa_Red->redThemeChip.isChecked = true
+                R.style.Theme_Nasa_Green->greenThemeChip.isChecked = true
+            }
+
             themesChipGroup.setOnCheckedChangeListener { _, _ ->
                 contract.changeTheme(
                     when {
                         defaultThemeChip.isChecked -> R.style.Theme_Nasa
                         redThemeChip.isChecked -> R.style.Theme_Nasa_Red
                         greenThemeChip.isChecked -> R.style.Theme_Nasa_Green
-                        darkThemeChip.isChecked -> R.style.Theme_Nasa
                         else -> R.style.Theme_Nasa
 
                     })
+            }
+
+            darkThemeChip.isChecked = contract.requestDarkMode()
+            darkThemeChip.setOnCheckedChangeListener{ _, isChecked ->
+                contract.changeDarkMode(isChecked)
             }
         }
     }

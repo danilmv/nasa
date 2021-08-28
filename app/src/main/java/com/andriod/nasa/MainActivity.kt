@@ -1,7 +1,9 @@
 package com.andriod.nasa
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.FragmentManager
 import com.andriod.nasa.databinding.ActivityMainBinding
 import com.andriod.nasa.fragment.PictureOfTheDayFragment
@@ -67,6 +69,18 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
     override fun changeTheme(theme: Int) {
         currentTheme = theme
         recreate()
+    }
+
+    override fun changeDarkMode(isDark: Boolean) {
+        AppCompatDelegate.setDefaultNightMode(if (isDark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
+    }
+
+    override fun requestTheme(): Int {
+        return currentTheme
+    }
+
+    override fun requestDarkMode(): Boolean {
+        return resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
     }
 
     companion object {
