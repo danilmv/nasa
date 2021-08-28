@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">Nasa</string>
-    <string name="picture">picture</string>
+    <string name="menu_picture">picture</string>
     <string name="today">today</string>
     <string name="yesterday">yesterday</string>
     <string name="before_yesterday">before yesterday</string>
+    <string name="chip_default">default</string>
+    <string name="chip_red">red</string>
+    <string name="chip_dark">dark</string>
+    <string name="chip_green">green</string>
+    <string name="menu_settings">settings</string>
 </resources>

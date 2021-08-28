@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/themes_chip_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:singleLine="true">
+
+        <com.google.android.material.chip.Chip
+            style="@style/my_chip_style"
+            android:text="@string/chip_default" />
+
+        <com.google.android.material.chip.Chip
+            style="@style/my_chip_style"
+            android:text="@string/chip_red" />
+
+        <com.google.android.material.chip.Chip
+            style="@style/my_chip_style"
+            android:text="@string/chip_green" />
+
+        <com.google.android.material.chip.Chip
+            style="@style/my_chip_style"
+            android:text="@string/chip_dark" />
+    </com.google.android.material.chip.ChipGroup>
+</LinearLayout>
