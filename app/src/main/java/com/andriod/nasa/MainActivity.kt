@@ -6,9 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.FragmentManager
 import com.andriod.nasa.databinding.ActivityMainBinding
+import com.andriod.nasa.fragment.MainViewPagerFragment
 import com.andriod.nasa.fragment.PictureOfTheDayFragment
 import com.andriod.nasa.fragment.SettingsFragment
-import com.andriod.nasa.fragment.MainViewPagerFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
     private val fragmentSettings by lazy { SettingsFragment() }
     private val fragmentViewPager by lazy { MainViewPagerFragment() }
 
-    private var currentFragment: FragmentTags = FragmentTags.PICTURE
+    private var currentFragment: FragmentTags = FragmentTags.VIEW_PAGER
     private var currentTheme = R.style.Theme_Nasa
     private var isDarkMode = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
 

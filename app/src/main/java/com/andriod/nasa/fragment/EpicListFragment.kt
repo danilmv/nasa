@@ -9,13 +9,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.andriod.nasa.adapter.EpicListViewPagerAdapter
 import com.andriod.nasa.databinding.FragmentEpicListBinding
 import com.andriod.nasa.viewmodel.EpicViewModel
-import com.andriod.nasa.viewmodel.PictureViewModel
 
 class EpicListFragment : Fragment() {
     private var _binding: FragmentEpicListBinding? = null
     private val binding: FragmentEpicListBinding get() = _binding!!
 
-    private val viewModel by lazy { ViewModelProvider(this).get(EpicViewModel::class.java) }
+    private val viewModel by lazy { ViewModelProvider(this).get(EpicViewModel::class.java).also {
+        it.onCreate()
+    } }
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -9,4 +9,6 @@
     <string name="chip_dark">dark</string>
     <string name="chip_green">green</string>
     <string name="menu_settings">settings</string>
+    <string name="name_picture">picture</string>
+    <string name="name_epic">epic</string>
 </resources>
