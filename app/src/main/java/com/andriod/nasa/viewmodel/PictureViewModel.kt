@@ -1,8 +1,10 @@
-package com.andriod.nasa
+package com.andriod.nasa.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.andriod.nasa.RetrofitHolder
+import com.andriod.nasa.Utils
 import com.andriod.nasa.entity.PictureOfTheDay
 import retrofit2.Call
 import retrofit2.Callback

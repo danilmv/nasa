@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.andriod.nasa.adapter.ViewPagerAdapter
+import com.andriod.nasa.adapter.MainViewPagerAdapter
 import com.andriod.nasa.databinding.FragmentViewPagerBinding
 
-class ViewPagerFragment : Fragment() {
+class MainViewPagerFragment : Fragment() {
     private var _binding: FragmentViewPagerBinding? = null
     private val binding: FragmentViewPagerBinding get() = _binding!!
 
@@ -24,7 +24,7 @@ class ViewPagerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.viewPager.adapter = ViewPagerAdapter(requireActivity())
+        binding.viewPager.adapter = MainViewPagerAdapter(requireActivity())
     }
 
     override fun onDestroy() {

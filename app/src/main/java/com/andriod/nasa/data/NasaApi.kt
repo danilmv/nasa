@@ -2,6 +2,7 @@ package com.andriod.nasa.data
 
 import com.andriod.nasa.BuildConfig
 import com.andriod.nasa.Utils
+import com.andriod.nasa.entity.Epic
 import com.andriod.nasa.entity.PictureOfTheDay
 import retrofit2.Call
 import retrofit2.http.GET
@@ -12,4 +13,7 @@ interface NasaApi {
     fun getPictureOfTheDay(
         @Query("date") date: String = Utils.getFormattedDate(),
     ): Call<PictureOfTheDay>
+
+    @GET("/EPIC/api/natural/images?api_key=${BuildConfig.ApiKey}")
+    fun getEpic(): Call<List<Epic>>
 }

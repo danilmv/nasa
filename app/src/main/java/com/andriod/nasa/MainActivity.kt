@@ -5,11 +5,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.FragmentManager
-import com.andriod.nasa.adapter.ViewPagerAdapter
 import com.andriod.nasa.databinding.ActivityMainBinding
 import com.andriod.nasa.fragment.PictureOfTheDayFragment
 import com.andriod.nasa.fragment.SettingsFragment
-import com.andriod.nasa.fragment.ViewPagerFragment
+import com.andriod.nasa.fragment.MainViewPagerFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
@@ -17,7 +16,7 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
 
     private val fragmentPictureOfTheDay by lazy { PictureOfTheDayFragment() }
     private val fragmentSettings by lazy { SettingsFragment() }
-    private val fragmentViewPager by lazy { ViewPagerFragment() }
+    private val fragmentViewPager by lazy { MainViewPagerFragment() }
 
     private var currentFragment: FragmentTags = FragmentTags.PICTURE
     private var currentTheme = R.style.Theme_Nasa

@@ -9,7 +9,7 @@ import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.andriod.nasa.PictureViewModel
+import com.andriod.nasa.viewmodel.PictureViewModel
 import com.andriod.nasa.Utils
 import com.andriod.nasa.databinding.FragmentPictureOfTheDayBinding
 import com.bumptech.glide.Glide
