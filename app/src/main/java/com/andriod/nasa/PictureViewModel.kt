@@ -12,7 +12,7 @@ class PictureViewModel : ViewModel() {
     private var _pictureOfTheDay = MutableLiveData<PictureOfTheDay>()
     val pictureOfTheDay: LiveData<PictureOfTheDay> = _pictureOfTheDay
     private var pictureRequestedOffset = 1
-    private val service by lazy { RetrofitHolder.getNasaApiService() }
+    private val nasaApi by lazy { RetrofitHolder.nasaApi }
 
     private val cachePicture = mutableMapOf<Int, PictureOfTheDay?>()
 
@@ -27,7 +27,7 @@ class PictureViewModel : ViewModel() {
         }
         if (pictureRequestedOffset != offset) {
             pictureRequestedOffset = offset
-            service.getPictureOfTheDay(Utils.getFormattedDate(offset))
+            nasaApi.getPictureOfTheDay(Utils.getFormattedDate(offset))
                 .enqueue(object : Callback<PictureOfTheDay> {
                     override fun onResponse(
                         call: Call<PictureOfTheDay>,

@@ -1,6 +1,6 @@
 package com.andriod.nasa
 
-import com.andriod.nasa.data.NasaApiService
+import com.andriod.nasa.data.NasaApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -12,9 +12,7 @@ object RetrofitHolder {
             .baseUrl("https://api.nasa.gov/")
             .build()
     }
-    private val service: NasaApiService by lazy {
-        retrofit.create(NasaApiService::class.java)
+    val nasaApi: NasaApi by lazy {
+        retrofit.create(NasaApi::class.java)
     }
-
-    fun getNasaApiService() = service
 }
