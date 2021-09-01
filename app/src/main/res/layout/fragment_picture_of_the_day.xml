@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linea_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple_200"
+    android:background="?attr/colorPrimaryVariant"
     android:orientation="vertical">
 
     <com.google.android.material.chip.ChipGroup
@@ -11,43 +12,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin"
-        app:checkedChip="@id/today_chip"
         app:selectionRequired="true"
         app:singleLine="true"
         app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/today_chip"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/MyСhipStyle"
             android:text="@string/today" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/yesterday_chip"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/MyСhipStyle"
             android:text="@string/yesterday" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/before_yesterday_chip"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/MyСhipStyle"
             android:text="@string/before_yesterday" />
     </com.google.android.material.chip.ChipGroup>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginEnd="@dimen/margin"
         android:layout_weight="9">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
             android:scaleType="center" />
 
         <FrameLayout
@@ -57,12 +52,14 @@
             app:behavior_hideable="true"
             app:behavior_peekHeight="50dp"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-            android:background="@color/teal_200">
+            android:background="?attr/colorSecondary">
 
                 <TextView
                     android:id="@+id/text_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/alexbrush"
+                    android:textSize="16sp"
                     android:layout_margin="@dimen/margin"/>
         </FrameLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

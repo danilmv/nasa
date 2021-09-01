@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorPrimaryVariant"
+    android:orientation="vertical">
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/themes_chip_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        app:singleLine="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/default_theme_chip"
+            style="@style/MyСhipStyle"
+            android:text="@string/chip_default" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/red_theme_chip"
+            style="@style/MyСhipStyle"
+            android:text="@string/chip_red" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/green_theme_chip"
+            style="@style/MyСhipStyle"
+            android:text="@string/chip_green" />
+    </com.google.android.material.chip.ChipGroup>
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/dark_theme_chip"
+        style="@style/Widget.MaterialComponents.Chip.Filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:text="@string/chip_dark" />
+</LinearLayout>

@@ -12,18 +12,22 @@ class PictureViewModel : ViewModel() {
     private var _pictureOfTheDay = MutableLiveData<PictureOfTheDay>()
     val pictureOfTheDay: LiveData<PictureOfTheDay> = _pictureOfTheDay
     private var pictureRequestedOffset = 1
-    private val service by lazy { Utils.getNasaApiService() }
+    private val service by lazy { RetrofitHolder.getNasaApiService() }
 
     private val cachePicture = mutableMapOf<Int, PictureOfTheDay?>()
 
-    fun requestPicture(offset: Int = 0) {
+    fun onDateChanged(offset: Int = 0){
+        requestPicture(offset)
+    }
+
+    private fun requestPicture(offset: Int = 0) {
         if (cachePicture[offset] != null) {
             _pictureOfTheDay.postValue(cachePicture[offset])
             return
         }
         if (pictureRequestedOffset != offset) {
             pictureRequestedOffset = offset
-            service.getPictureOfTheDay(Utils.getToday(offset))
+            service.getPictureOfTheDay(Utils.getFormattedDate(offset))
                 .enqueue(object : Callback<PictureOfTheDay> {
                     override fun onResponse(
                         call: Call<PictureOfTheDay>,
