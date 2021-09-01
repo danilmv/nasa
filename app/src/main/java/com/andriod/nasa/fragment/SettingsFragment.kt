@@ -16,7 +16,7 @@ class SettingsFragment : Fragment() {
     private val contract: Contract by lazy { requireActivity() as MainActivity }
 
     interface Contract {
-        fun setTheme(theme: Int)
+        fun setThemeId(theme: Int)
         fun setDarkMode(isDarkMode: Boolean)
         fun getThemeId() : Int
         fun isDarkMode(): Boolean
@@ -41,7 +41,7 @@ class SettingsFragment : Fragment() {
             }
 
             themesChipGroup.setOnCheckedChangeListener { _, _ ->
-                contract.setTheme(
+                contract.setThemeId(
                     when {
                         defaultThemeChip.isChecked -> R.style.Theme_Nasa
                         redThemeChip.isChecked -> R.style.Theme_Nasa_Red

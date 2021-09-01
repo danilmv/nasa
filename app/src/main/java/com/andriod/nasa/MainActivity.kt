@@ -5,9 +5,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.FragmentManager
+import com.andriod.nasa.adapter.ViewPagerAdapter
 import com.andriod.nasa.databinding.ActivityMainBinding
 import com.andriod.nasa.fragment.PictureOfTheDayFragment
 import com.andriod.nasa.fragment.SettingsFragment
+import com.andriod.nasa.fragment.ViewPagerFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
@@ -15,6 +17,7 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
 
     private val fragmentPictureOfTheDay by lazy { PictureOfTheDayFragment() }
     private val fragmentSettings by lazy { SettingsFragment() }
+    private val fragmentViewPager by lazy { ViewPagerFragment() }
 
     private var currentFragment: FragmentTags = FragmentTags.PICTURE
     private var currentTheme = R.style.Theme_Nasa
@@ -41,11 +44,12 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
         showCurrentFragment()
     }
 
+
     private fun prepareBottomNavigationView() {
         bottomView.setOnItemSelectedListener {
             currentFragment = when (it.itemId) {
                 R.id.menu_bottom_item_picture -> {
-                    FragmentTags.PICTURE
+                    FragmentTags.VIEW_PAGER
                 }
                 R.id.menu_bottom_item_settings -> {
                     FragmentTags.SETTINGS
@@ -67,11 +71,12 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
                 when (currentFragment) {
                     FragmentTags.PICTURE -> fragmentPictureOfTheDay
                     FragmentTags.SETTINGS -> fragmentSettings
+                    FragmentTags.VIEW_PAGER -> fragmentViewPager
                 })
             .commit()
     }
 
-    override fun setTheme(theme: Int) {
+    override fun setThemeId(theme: Int) {
         currentTheme = theme
         recreate()
     }
@@ -87,7 +92,7 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
 
     companion object {
         enum class FragmentTags(val id: Int) {
-            PICTURE(0), SETTINGS(1),
+            PICTURE(0), SETTINGS(1), VIEW_PAGER(2)
         }
 
         const val TAG = "@@MainActivity"
