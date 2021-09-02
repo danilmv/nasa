@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.andriod.nasa.R
+import com.andriod.nasa.Utils
 import com.andriod.nasa.adapter.MainViewPagerAdapter
 import com.andriod.nasa.databinding.FragmentViewPagerBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -39,6 +41,14 @@ class MainViewPagerFragment : Fragment() {
         TabLayoutMediator(binding.tabLayout, binding.viewPager
         ) { tab, position ->
             tab.text = pages[position].name
+            when (position) {
+                1 -> {
+                    Utils.numOfEpicPhotos.observe(viewLifecycleOwner) {
+                        tab.orCreateBadge.number = it
+                    }
+                }
+            }
+
         }.attach()
     }
 

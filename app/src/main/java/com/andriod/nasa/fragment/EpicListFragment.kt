@@ -1,11 +1,13 @@
 package com.andriod.nasa.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.andriod.nasa.Utils
 import com.andriod.nasa.adapter.EpicListViewPagerAdapter
 import com.andriod.nasa.databinding.FragmentEpicListBinding
 import com.andriod.nasa.viewmodel.EpicViewModel
@@ -31,7 +33,12 @@ class EpicListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.epic.observe(viewLifecycleOwner) {
             binding.viewPager.adapter = EpicListViewPagerAdapter(requireActivity(), it)
+            Utils.numOfEpicPhotos.value = it.size
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
     }
 
     override fun onDestroy() {
