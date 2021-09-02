@@ -16,9 +16,9 @@ class SettingsFragment : Fragment() {
     private val contract: Contract by lazy { requireActivity() as MainActivity }
 
     interface Contract {
-        fun setThemeId(theme: Int)
+        fun setThemeId(theme: MainActivity.Companion.Themes)
         fun setDarkMode(isDarkMode: Boolean)
-        fun getThemeId() : Int
+        fun getThemeId(): MainActivity.Companion.Themes
         fun isDarkMode(): Boolean
     }
 
@@ -34,25 +34,24 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            when(contract.getThemeId()){
-                R.style.Theme_Nasa->defaultThemeChip.isChecked = true
-                R.style.Theme_Nasa_Red->redThemeChip.isChecked = true
-                R.style.Theme_Nasa_Green->greenThemeChip.isChecked = true
+            when (contract.getThemeId()) {
+                MainActivity.Companion.Themes.DEFAULT -> defaultThemeChip.isChecked = true
+                MainActivity.Companion.Themes.RED -> redThemeChip.isChecked = true
+                MainActivity.Companion.Themes.GREEN -> greenThemeChip.isChecked = true
             }
 
             themesChipGroup.setOnCheckedChangeListener { _, _ ->
                 contract.setThemeId(
                     when {
-                        defaultThemeChip.isChecked -> R.style.Theme_Nasa
-                        redThemeChip.isChecked -> R.style.Theme_Nasa_Red
-                        greenThemeChip.isChecked -> R.style.Theme_Nasa_Green
-                        else -> R.style.Theme_Nasa
-
+                        defaultThemeChip.isChecked -> MainActivity.Companion.Themes.DEFAULT
+                        redThemeChip.isChecked -> MainActivity.Companion.Themes.RED
+                        greenThemeChip.isChecked -> MainActivity.Companion.Themes.GREEN
+                        else -> MainActivity.Companion.Themes.DEFAULT
                     })
             }
 
             darkThemeChip.isChecked = contract.isDarkMode()
-            darkThemeChip.setOnCheckedChangeListener{ _, isChecked ->
+            darkThemeChip.setOnCheckedChangeListener { _, isChecked ->
                 contract.setDarkMode(isChecked)
             }
         }
