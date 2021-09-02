@@ -18,6 +18,7 @@ class MainViewPagerFragment : Fragment() {
         listOf(
             MainViewPagerAdapter.Page(getString(R.string.name_picture)) { PictureOfTheDayFragment() },
             MainViewPagerAdapter.Page(getString(R.string.name_epic)) { EpicListFragment() },
+            MainViewPagerAdapter.Page(getString(R.string.name_curiosity)) { CuriosityPhotoListFragment() },
         )
     }
 
