@@ -42,13 +42,13 @@ class MainViewPagerFragment : Fragment() {
         ) { tab, position ->
             tab.text = pages[position].name
             when (position) {
-                1 -> {
-                    Utils.numOfEpicPhotos.observe(viewLifecycleOwner) {
-                        tab.orCreateBadge.number = it
-                    }
+                1 -> Utils.numOfEpicPhotos.observe(viewLifecycleOwner) {
+                    tab.orCreateBadge.number = it
+                }
+                2 -> Utils.numOfCuriosityPhotos.observe(viewLifecycleOwner) {
+                    tab.orCreateBadge.number = it
                 }
             }
-
         }.attach()
     }
 

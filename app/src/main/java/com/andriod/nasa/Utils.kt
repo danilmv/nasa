@@ -12,6 +12,7 @@ object Utils {
     var currentDay = 0
 
     val numOfEpicPhotos = MutableLiveData<Int>()
+    val numOfCuriosityPhotos = MutableLiveData<Int>()
 
     fun getFormattedDate(offset: Int = 0): String {
         val date = Calendar.getInstance().apply { add(Calendar.DATE, offset) }.time

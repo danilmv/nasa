@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.andriod.nasa.Utils
 import com.andriod.nasa.adapter.CuriosityPhotoListViewPagerAdapter
 import com.andriod.nasa.databinding.FragmentCuriosityPhotoListBinding
 import com.andriod.nasa.viewmodel.CuriosityPhotoViewModel
@@ -32,6 +33,7 @@ class CuriosityPhotoListFragment : Fragment() {
         viewModel.curiosity.observe(viewLifecycleOwner) { photos ->
             binding.viewPager.adapter =
                 CuriosityPhotoListViewPagerAdapter(requireActivity(), photos)
+            Utils.numOfCuriosityPhotos.value = photos.size
         }
     }
 
