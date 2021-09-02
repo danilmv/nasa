@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
 import com.andriod.nasa.Utils
 import com.andriod.nasa.adapter.EpicListViewPagerAdapter
 import com.andriod.nasa.databinding.FragmentEpicListBinding
@@ -16,9 +17,11 @@ class EpicListFragment : Fragment() {
     private var _binding: FragmentEpicListBinding? = null
     private val binding: FragmentEpicListBinding get() = _binding!!
 
-    private val viewModel by lazy { ViewModelProvider(this).get(EpicViewModel::class.java).also {
-        it.onCreate()
-    } }
+    private val viewModel by lazy {
+        ViewModelProvider(this).get(EpicViewModel::class.java).also {
+            it.onCreate()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +37,10 @@ class EpicListFragment : Fragment() {
         viewModel.epic.observe(viewLifecycleOwner) {
             binding.viewPager.adapter = EpicListViewPagerAdapter(requireActivity(), it)
             Utils.numOfEpicPhotos.value = it.size
+            binding.viewPager.setPageTransformer { page, position ->
+                page.alpha = 1 - position
+                page.scaleY = position + 1
+            }
         }
     }
 
