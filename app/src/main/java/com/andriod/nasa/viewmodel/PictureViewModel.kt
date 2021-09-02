@@ -29,7 +29,7 @@ class PictureViewModel : ViewModel() {
         }
         if (pictureRequestedOffset != offset) {
             pictureRequestedOffset = offset
-            nasaApi.getPictureOfTheDay(Utils.getFormattedDate(offset - 8))
+            nasaApi.getPictureOfTheDay(Utils.getFormattedDate(offset))
                 .enqueue(object : Callback<PictureOfTheDay> {
                     override fun onResponse(
                         call: Call<PictureOfTheDay>,

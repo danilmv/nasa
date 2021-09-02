@@ -1,5 +1,7 @@
 package com.andriod.nasa.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -44,14 +46,12 @@ class PictureOfTheDayFragment : Fragment() {
                         .centerCrop()
                         .into(imageView)
                 } else {
-                    webView.webViewClient = WebViewClient()
-                    webView.setInitialScale(70)
-                    webView.settings.loadWithOverviewMode = true
-                    webView.settings.useWideViewPort = true
-                    webView.loadUrl(picture.url)
+                   callYoutubeButton.setOnClickListener{
+                       startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(picture.url)))
+                   }
                 }
                 imageView.isVisible = picture.isImage
-                webView.isVisible = !picture.isImage
+                callYoutubeButton.isVisible = !picture.isImage
             }
 
             val bottomSheetBehavior: BottomSheetBehavior<FrameLayout> =
