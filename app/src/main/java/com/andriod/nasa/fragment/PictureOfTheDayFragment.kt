@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebViewClient
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -42,8 +43,15 @@ class PictureOfTheDayFragment : Fragment() {
                         .load(picture.url)
                         .centerCrop()
                         .into(imageView)
+                } else {
+                    webView.webViewClient = WebViewClient()
+                    webView.setInitialScale(70)
+                    webView.settings.loadWithOverviewMode = true
+                    webView.settings.useWideViewPort = true
+                    webView.loadUrl(picture.url)
                 }
                 imageView.isVisible = picture.isImage
+                webView.isVisible = !picture.isImage
             }
 
             val bottomSheetBehavior: BottomSheetBehavior<FrameLayout> =
