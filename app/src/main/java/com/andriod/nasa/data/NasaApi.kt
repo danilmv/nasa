@@ -10,16 +10,18 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface NasaApi {
-    @GET("planetary/apod?api_key=${BuildConfig.ApiKey}")
+    @GET("/planetary/apod")
     fun getPictureOfTheDay(
         @Query("date") date: String = Utils.getFormattedDate(),
+        @Query("api_key") apiKey: String = BuildConfig.ApiKey,
     ): Call<PictureOfTheDay>
 
-    @GET("/EPIC/api/natural/images?api_key=${BuildConfig.ApiKey}")
-    fun getEpic(): Call<List<Epic>>
+    @GET("/EPIC/api/natural/images")
+    fun getEpic(@Query("api_key") apiKey: String = BuildConfig.ApiKey): Call<List<Epic>>
 
-    @GET("/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=${BuildConfig.ApiKey}")
+    @GET("/mars-photos/api/v1/rovers/curiosity/photos?sol=1000")
     fun getCuriousityPhotos(
-        @Query("page") page: Int = 1
+        @Query("page") page: Int = 1,
+        @Query("api_key") apiKey: String = BuildConfig.ApiKey,
     ): Call<Curiosity>
 }
