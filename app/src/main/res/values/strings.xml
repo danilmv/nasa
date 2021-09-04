@@ -18,4 +18,5 @@
     <string name="example_3">me too</string>
     <string name="sandbox">sandbox</string>
     <string name="right_text">I\'m on the right side of you :)</string>
+    <string name="button">button</string>
 </resources>

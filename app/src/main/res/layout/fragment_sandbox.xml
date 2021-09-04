@@ -31,17 +31,56 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier"
+        android:id="@+id/vertical_barrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="right"
         app:constraint_referenced_ids="text_view_example1,text_view_example2, text_view_example3" />
 
     <TextView
+        android:id="@+id/right_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/barrier"
-        android:text="@string/right_text"/>
+        android:text="@string/right_text"
+        app:layout_constraintStart_toEndOf="@id/vertical_barrier"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintCircle="@id/right_text_view"
+        app:layout_constraintCircleRadius="75dp"
+        app:layout_constraintCircleAngle="135"
+        android:rotation="45"
+        android:text="@string/button"
+        />
+    <Button
+        android:id="@+id/button_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintCircle="@id/right_text_view"
+        app:layout_constraintCircleRadius="75dp"
+        app:layout_constraintCircleAngle="175"
+        android:rotation="65"
+        android:text="@string/button"
+        />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/horizontal_barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="text_view_example3,text_view_example2, text_view_example1,
+         right_text_view, button_1, button_2" />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/horizontal_barrier"
+        app:layout_constraintStart_toStartOf="@id/vertical_barrier">
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
