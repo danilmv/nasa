@@ -37,6 +37,10 @@ class MainViewPagerFragment : Fragment() {
                 getString(R.string.name_curiosity),
                 { CuriosityPhotoListFragment() },
                 setSetBadge(Utils.numOfCuriosityPhotos)),
+            MainViewPagerAdapter.Page(
+                getString(R.string.sandbox),
+                { SandboxFragment() },
+            )
         )
     }
 

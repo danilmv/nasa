@@ -13,4 +13,9 @@
     <string name="name_epic">epic</string>
     <string name="name_curiosity">curiosity</string>
     <string name="pick_app_to_play_video">Pick app to play video</string>
+    <string name="example_1">hi there</string>
+    <string name="example_2">checking barrier</string>
+    <string name="example_3">me too</string>
+    <string name="sandbox">sandbox</string>
+    <string name="right_text">I\'m on the right side of you :)</string>
 </resources>
