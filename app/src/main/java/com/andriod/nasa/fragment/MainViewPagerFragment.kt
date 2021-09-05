@@ -40,6 +40,10 @@ class MainViewPagerFragment : Fragment() {
             MainViewPagerAdapter.Page(
                 getString(R.string.sandbox),
                 { SandboxFragment() },
+            ),
+            MainViewPagerAdapter.Page(
+                getString(R.string.motion),
+                { MotionLayoutFragment() },
             )
         )
     }
