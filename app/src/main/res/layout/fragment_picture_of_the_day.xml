@@ -56,7 +56,8 @@
                 android:layout_gravity="center"
                 android:scaleX="2"
                 android:scaleY="2"
-                android:src="@android:drawable/presence_video_online" />
+                android:src="@android:drawable/presence_video_online"
+                android:visibility="gone"/>
         </FrameLayout>
 
         <FrameLayout
