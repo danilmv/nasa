@@ -21,7 +21,12 @@ app changes: more data from Nasa.Api placed on ViewPager with different orientat
 <img src="printscreens/lesson3_1.png" width="32%">
 <img src="printscreens/lesson3_2.png" width="32%">
 
+## Lesson4: Constraint&Motion Layouts
+app changes: added constraint-sandbox with demonstation of border, constraintCircle and collapsingToolbar; and motionLayout with animation 
 
-
+### Preview
+<img src="printscreens/lesson4_1.png" width="32%">
+<img src="printscreens/lesson4_2.png" width="32%">
+<video src="printscreens/lesson4.mp4" width="32%"></video>
 
 

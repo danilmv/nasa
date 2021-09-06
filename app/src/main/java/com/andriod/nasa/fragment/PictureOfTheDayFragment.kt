@@ -7,14 +7,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebViewClient
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.andriod.nasa.viewmodel.PictureViewModel
+import com.andriod.nasa.R
 import com.andriod.nasa.Utils
 import com.andriod.nasa.databinding.FragmentPictureOfTheDayBinding
+import com.andriod.nasa.viewmodel.PictureViewModel
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
@@ -46,9 +46,12 @@ class PictureOfTheDayFragment : Fragment() {
                         .centerCrop()
                         .into(imageView)
                 } else {
-                   callYoutubeButton.setOnClickListener{
-                       startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(picture.url)))
-                   }
+                    callYoutubeButton.setOnClickListener {
+                        Intent.createChooser(
+                            Intent(Intent.ACTION_VIEW, Uri.parse(picture.url)),
+                            getString(R.string.pick_app_to_play_video))
+                            ?.let { startActivity(it) }
+                    }
                 }
                 imageView.isVisible = picture.isImage
                 callYoutubeButton.isVisible = !picture.isImage

@@ -5,21 +5,46 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import com.andriod.nasa.R
 import com.andriod.nasa.Utils
 import com.andriod.nasa.adapter.MainViewPagerAdapter
 import com.andriod.nasa.databinding.FragmentViewPagerBinding
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainViewPagerFragment : Fragment() {
     private var _binding: FragmentViewPagerBinding? = null
     private val binding: FragmentViewPagerBinding get() = _binding!!
 
+    private val setSetBadge = { liveData: MutableLiveData<Int> ->
+        { tab: TabLayout.Tab ->
+            liveData.observe(viewLifecycleOwner) {
+                tab.orCreateBadge.number = it
+            }
+        }
+    }
     private val pages by lazy {
         listOf(
-            MainViewPagerAdapter.Page(getString(R.string.name_picture)) { PictureOfTheDayFragment() },
-            MainViewPagerAdapter.Page(getString(R.string.name_epic)) { EpicListFragment() },
-            MainViewPagerAdapter.Page(getString(R.string.name_curiosity)) { CuriosityPhotoListFragment() },
+            MainViewPagerAdapter.Page(
+                getString(R.string.name_picture),
+                { PictureOfTheDayFragment() }),
+            MainViewPagerAdapter.Page(
+                getString(R.string.name_epic),
+                { EpicListFragment() },
+                setSetBadge(Utils.numOfEpicPhotos)),
+            MainViewPagerAdapter.Page(
+                getString(R.string.name_curiosity),
+                { CuriosityPhotoListFragment() },
+                setSetBadge(Utils.numOfCuriosityPhotos)),
+            MainViewPagerAdapter.Page(
+                getString(R.string.sandbox),
+                { SandboxFragment() },
+            ),
+            MainViewPagerAdapter.Page(
+                getString(R.string.motion),
+                { MotionLayoutFragment() },
+            )
         )
     }
 
@@ -40,14 +65,7 @@ class MainViewPagerFragment : Fragment() {
         TabLayoutMediator(binding.tabLayout, binding.viewPager
         ) { tab, position ->
             tab.text = pages[position].name
-            when (position) {
-                1 -> Utils.numOfEpicPhotos.observe(viewLifecycleOwner) {
-                    tab.orCreateBadge.number = it
-                }
-                2 -> Utils.numOfCuriosityPhotos.observe(viewLifecycleOwner) {
-                    tab.orCreateBadge.number = it
-                }
-            }
+            pages[position].setBadge(tab)
         }.attach()
     }
 

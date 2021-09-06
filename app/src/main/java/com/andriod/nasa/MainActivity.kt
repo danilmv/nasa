@@ -81,6 +81,8 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
         recreate()
     }
 
+
+
     override fun setDarkMode(isDarkMode: Boolean) {
         this.isDarkMode = isDarkMode
         AppCompatDelegate.setDefaultNightMode(if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)

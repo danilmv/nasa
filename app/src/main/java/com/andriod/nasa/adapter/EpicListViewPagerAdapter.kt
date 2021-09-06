@@ -9,8 +9,7 @@ import com.andriod.nasa.fragment.EpicFragment
 class EpicListViewPagerAdapter(
     fragmentActivity: FragmentActivity,
     private val epics: List<Epic>,
-) :
-    FragmentStateAdapter(fragmentActivity) {
+) : FragmentStateAdapter(fragmentActivity) {
     override fun getItemCount(): Int = epics.size
 
     override fun createFragment(position: Int): Fragment = EpicFragment.newInstance(epics[position])

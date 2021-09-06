@@ -13,7 +13,10 @@
         app:tabSelectedTextColor="?attr/colorOnSecondary"
         app:tabBackground="?attr/colorSecondaryVariant"
         app:tabIndicatorFullWidth="true"
+        app:tabMode="auto"
+        app:tabIndicatorAnimationMode="elastic"
         app:tabIndicatorGravity="stretch"
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
         />
     
     <androidx.viewpager2.widget.ViewPager2
