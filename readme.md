@@ -8,13 +8,25 @@ text is shown in BottomSheet
 <img src="printscreens/lesson1_2.png" width="32%">
 
 ## Lesson2: styles
-app changes: nasa: added styles and themes, settings fragment where you can pick a theme and change to dark mode (from Android 10+ dark is default), added custom font for description
+app changes: added styles and themes, settings fragment where you can pick a theme and change to dark mode (from Android 10+ dark is default), added custom font for description
 
 ### Preview
 <img src="printscreens/lesson2_1.png" width="32%">
 <img src="printscreens/lesson2_2.png" width="32%">
 
+## Lesson3: ViewPager
+app changes: more data from Nasa.Api placed on ViewPager with different orientation, badges and basic transformer; youtube call was added for a video link on POD; 
 
+### Preview
+<img src="printscreens/lesson3_1.png" width="32%">
+<img src="printscreens/lesson3_2.png" width="32%">
 
+## Lesson4: Constraint&Motion Layouts
+app changes: added constraint-sandbox with demonstation of border, constraintCircle and collapsingToolbar; and motionLayout with animation 
+
+### Preview
+<img src="printscreens/lesson4_1.png" width="32%">
+<img src="printscreens/lesson4_2.png" width="32%">
+<video src="printscreens/lesson4.mp4" width="32%"></video>
 
 

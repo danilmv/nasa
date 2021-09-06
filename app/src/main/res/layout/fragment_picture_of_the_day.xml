@@ -39,11 +39,26 @@
         android:layout_marginEnd="@dimen/margin"
         android:layout_weight="9">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/image_view"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="center" />
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="center" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/call_youtube_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:scaleX="2"
+                android:scaleY="2"
+                android:src="@android:drawable/presence_video_online"
+                android:visibility="gone"/>
+        </FrameLayout>
 
         <FrameLayout
             android:id="@+id/bottom_sheet_frame_layout"

@@ -1,11 +1,13 @@
 package com.andriod.nasa
 
+import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.FragmentManager
 import com.andriod.nasa.databinding.ActivityMainBinding
+import com.andriod.nasa.fragment.MainViewPagerFragment
 import com.andriod.nasa.fragment.PictureOfTheDayFragment
 import com.andriod.nasa.fragment.SettingsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -15,9 +17,10 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
 
     private val fragmentPictureOfTheDay by lazy { PictureOfTheDayFragment() }
     private val fragmentSettings by lazy { SettingsFragment() }
+    private val fragmentViewPager by lazy { MainViewPagerFragment() }
 
-    private var currentFragment: FragmentTags = FragmentTags.PICTURE
-    private var currentTheme = R.style.Theme_Nasa
+    private var currentFragment: FragmentTags = FragmentTags.VIEW_PAGER
+    private var currentTheme = Themes.DEFAULT
     private var isDarkMode = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
 
     private val bottomView: BottomNavigationView by lazy { binding.bottomView }
@@ -26,11 +29,11 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
         savedInstanceState?.let {
             currentFragment = FragmentTags.valueOf(it.getString(KEY_CURRENT_FRAGMENT)
                 ?: PICTURE_FRAGMENT_TAG_NAME)
-            currentTheme = it.getInt(KEY_CURRENT_THEME)
+            currentTheme = Themes.valueOf(it.getString(KEY_CURRENT_THEME) ?: Themes.DEFAULT.name)
             isDarkMode = it.getInt(KEY_CURRENT_DARK_MODE) == 1
         }
 
-        setTheme(currentTheme)
+        setTheme(currentTheme.id)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -41,11 +44,12 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
         showCurrentFragment()
     }
 
+
     private fun prepareBottomNavigationView() {
         bottomView.setOnItemSelectedListener {
             currentFragment = when (it.itemId) {
                 R.id.menu_bottom_item_picture -> {
-                    FragmentTags.PICTURE
+                    FragmentTags.VIEW_PAGER
                 }
                 R.id.menu_bottom_item_settings -> {
                     FragmentTags.SETTINGS
@@ -67,14 +71,17 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
                 when (currentFragment) {
                     FragmentTags.PICTURE -> fragmentPictureOfTheDay
                     FragmentTags.SETTINGS -> fragmentSettings
+                    FragmentTags.VIEW_PAGER -> fragmentViewPager
                 })
             .commit()
     }
 
-    override fun setTheme(theme: Int) {
+    override fun setThemeId(theme: Themes) {
         currentTheme = theme
         recreate()
     }
+
+
 
     override fun setDarkMode(isDarkMode: Boolean) {
         this.isDarkMode = isDarkMode
@@ -87,7 +94,7 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
 
     companion object {
         enum class FragmentTags(val id: Int) {
-            PICTURE(0), SETTINGS(1),
+            PICTURE(0), SETTINGS(1), VIEW_PAGER(2)
         }
 
         const val TAG = "@@MainActivity"
@@ -96,12 +103,16 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
         const val KEY_CURRENT_DARK_MODE = "current_dark_mode"
 
         const val PICTURE_FRAGMENT_TAG_NAME = "PICTURE"
+
+        enum class Themes(val id: Int){
+            DEFAULT(R.style.Theme_Nasa), RED(R.style.Theme_Nasa_Red), GREEN(R.style.Theme_Nasa_Green)
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(KEY_CURRENT_FRAGMENT, currentFragment.name)
-        outState.putInt(KEY_CURRENT_THEME, currentTheme)
+        outState.putString(KEY_CURRENT_THEME, currentTheme.name)
         outState.putInt(KEY_CURRENT_DARK_MODE, if (isDarkMode) 1 else 0)
     }
 }

@@ -1,5 +1,7 @@
 package com.andriod.nasa.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,9 +11,10 @@ import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.andriod.nasa.PictureViewModel
+import com.andriod.nasa.R
 import com.andriod.nasa.Utils
 import com.andriod.nasa.databinding.FragmentPictureOfTheDayBinding
+import com.andriod.nasa.viewmodel.PictureViewModel
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
@@ -42,8 +45,16 @@ class PictureOfTheDayFragment : Fragment() {
                         .load(picture.url)
                         .centerCrop()
                         .into(imageView)
+                } else {
+                    callYoutubeButton.setOnClickListener {
+                        Intent.createChooser(
+                            Intent(Intent.ACTION_VIEW, Uri.parse(picture.url)),
+                            getString(R.string.pick_app_to_play_video))
+                            ?.let { startActivity(it) }
+                    }
                 }
                 imageView.isVisible = picture.isImage
+                callYoutubeButton.isVisible = !picture.isImage
             }
 
             val bottomSheetBehavior: BottomSheetBehavior<FrameLayout> =
