@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.andriod.nasa.adapter.EpicRecyclerViewAdapter
 import com.andriod.nasa.databinding.FragmentRecyclerEpicBinding
+import com.andriod.nasa.entity.Epic
 import com.andriod.nasa.viewmodel.EpicViewModel
 
 class EpicRecyclerViewFragment : Fragment() {
@@ -19,6 +20,12 @@ class EpicRecyclerViewFragment : Fragment() {
         ViewModelProvider(this).get(EpicViewModel::class.java).also {
             it.onCreate()
         }
+    }
+
+    private val contract by lazy { requireActivity() as Contract }
+
+    interface Contract {
+        fun onItemClickListener(epic: Epic)
     }
 
     override fun onCreateView(
@@ -38,6 +45,9 @@ class EpicRecyclerViewFragment : Fragment() {
             adapter = EpicRecyclerViewAdapter().also { adapter ->
                 viewModel.epic.observe(viewLifecycleOwner) {
                     adapter.updateData(it)
+                }
+                adapter.listener = EpicRecyclerViewAdapter.OnItemClickListener { epic ->
+                    contract.onItemClickListener(epic)
                 }
             }
         }

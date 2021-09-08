@@ -1,18 +1,21 @@
 package com.andriod.nasa
 
-import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.FragmentManager
 import com.andriod.nasa.databinding.ActivityMainBinding
+import com.andriod.nasa.entity.Epic
+import com.andriod.nasa.fragment.EpicRecyclerViewFragment
 import com.andriod.nasa.fragment.MainViewPagerFragment
 import com.andriod.nasa.fragment.PictureOfTheDayFragment
 import com.andriod.nasa.fragment.SettingsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
+class MainActivity : AppCompatActivity(), SettingsFragment.Contract,
+    EpicRecyclerViewFragment.Contract {
     private lateinit var binding: ActivityMainBinding
 
     private val fragmentPictureOfTheDay by lazy { PictureOfTheDayFragment() }
@@ -82,7 +85,6 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
     }
 
 
-
     override fun setDarkMode(isDarkMode: Boolean) {
         this.isDarkMode = isDarkMode
         AppCompatDelegate.setDefaultNightMode(if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
@@ -104,7 +106,7 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
 
         const val PICTURE_FRAGMENT_TAG_NAME = "PICTURE"
 
-        enum class Themes(val id: Int){
+        enum class Themes(val id: Int) {
             DEFAULT(R.style.Theme_Nasa), RED(R.style.Theme_Nasa_Red), GREEN(R.style.Theme_Nasa_Green)
         }
     }
@@ -114,5 +116,9 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
         outState.putString(KEY_CURRENT_FRAGMENT, currentFragment.name)
         outState.putString(KEY_CURRENT_THEME, currentTheme.name)
         outState.putInt(KEY_CURRENT_DARK_MODE, if (isDarkMode) 1 else 0)
+    }
+
+    override fun onItemClickListener(epic: Epic) {
+        Toast.makeText(this, "item clicked: ${epic.caption}", Toast.LENGTH_SHORT).show()
     }
 }
