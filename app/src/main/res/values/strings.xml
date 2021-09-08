@@ -43,5 +43,6 @@
         bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla</string>
     <string name="collapsing_toolbar_text">I\'m collapsing toolbar</string>
     <string name="motion">motion</string>
+    <string name="recycler">recycler:epic</string>
     <string name="wiki_hint">input wiki request here</string>
 </resources>
