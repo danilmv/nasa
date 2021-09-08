@@ -4,7 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.transition.ChangeImageTransform
+import androidx.transition.TransitionManager
+import androidx.transition.TransitionSet
 import com.andriod.nasa.databinding.FragmentImageFullScreenBinding
 import com.andriod.nasa.entity.Epic
 import com.bumptech.glide.Glide
@@ -36,6 +40,24 @@ class FullScreenImageFragment : Fragment() {
                 .load(epic.imageUrl)
                 .fitCenter()
                 .into(binding.imageView)
+        }
+        resizeImage()
+    }
+
+    private fun resizeImage() {
+        binding.imageView.apply {
+            setOnClickListener {
+                TransitionManager.beginDelayedTransition(
+                    binding.container,
+                    TransitionSet()
+                        .addTransition(ChangeImageTransform())
+                )
+
+                scaleType = when (scaleType) {
+                    ImageView.ScaleType.CENTER_CROP -> ImageView.ScaleType.CENTER
+                    else -> ImageView.ScaleType.CENTER_CROP
+                }
+            }
         }
     }
 
