@@ -5,13 +5,11 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
 import com.andriod.nasa.databinding.ActivityMainBinding
 import com.andriod.nasa.entity.Epic
-import com.andriod.nasa.fragment.EpicRecyclerViewFragment
-import com.andriod.nasa.fragment.MainViewPagerFragment
-import com.andriod.nasa.fragment.PictureOfTheDayFragment
-import com.andriod.nasa.fragment.SettingsFragment
+import com.andriod.nasa.fragment.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity(), SettingsFragment.Contract,
@@ -119,6 +117,15 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract,
     }
 
     override fun onItemClickListener(epic: Epic) {
-        Toast.makeText(this, "item clicked: ${epic.caption}", Toast.LENGTH_SHORT).show()
+        showFullScreenImage(epic)
+    }
+
+    private fun showFullScreenImage(epic: Epic) {
+        binding.bottomView.isVisible = false
+
+        supportFragmentManager.beginTransaction()
+            .replace(binding.mainContainer.id, FullScreenImageFragment.newInstance(epic))
+            .addToBackStack(null)
+            .commit()
     }
 }
