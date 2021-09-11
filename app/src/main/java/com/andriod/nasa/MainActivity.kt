@@ -2,7 +2,7 @@ package com.andriod.nasa
 
 import android.os.Build
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract,
         supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container,
+            .replace(binding.mainContainer.id,
                 when (currentFragment) {
                     FragmentTags.PICTURE -> fragmentPictureOfTheDay
                     FragmentTags.SETTINGS -> fragmentSettings
@@ -116,14 +116,11 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract,
         outState.putInt(KEY_CURRENT_DARK_MODE, if (isDarkMode) 1 else 0)
     }
 
-    override fun onItemClickListener(epic: Epic) {
-        showFullScreenImage(epic)
-    }
-
-    private fun showFullScreenImage(epic: Epic) {
+    override fun onItemClickListener(epic: Epic, view: View) {
         binding.bottomView.isVisible = false
 
         supportFragmentManager.beginTransaction()
+            .addSharedElement(view, view.transitionName)
             .replace(binding.mainContainer.id, FullScreenImageFragment.newInstance(epic))
             .addToBackStack(null)
             .commit()

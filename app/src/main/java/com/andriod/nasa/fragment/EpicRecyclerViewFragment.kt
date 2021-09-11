@@ -1,12 +1,14 @@
 package com.andriod.nasa.fragment
 
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.andriod.nasa.R
 import com.andriod.nasa.adapter.EpicRecyclerViewAdapter
 import com.andriod.nasa.databinding.FragmentRecyclerEpicBinding
 import com.andriod.nasa.entity.Epic
@@ -25,7 +27,7 @@ class EpicRecyclerViewFragment : Fragment() {
     private val contract by lazy { requireActivity() as Contract }
 
     interface Contract {
-        fun onItemClickListener(epic: Epic)
+        fun onItemClickListener(epic: Epic, view: View)
     }
 
     override fun onCreateView(
@@ -33,6 +35,11 @@ class EpicRecyclerViewFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
+        exitTransition = TransitionInflater.from(context)
+            .inflateTransition(R.transition.shared_image)
+
+        postponeEnterTransition()
+
         _binding = FragmentRecyclerEpicBinding.inflate(inflater)
         return binding.root
     }
@@ -46,8 +53,13 @@ class EpicRecyclerViewFragment : Fragment() {
                 viewModel.epic.observe(viewLifecycleOwner) {
                     adapter.updateData(it)
                 }
-                adapter.listener = EpicRecyclerViewAdapter.OnItemClickListener { epic ->
-                    contract.onItemClickListener(epic)
+                adapter.listener = object : EpicRecyclerViewAdapter.OnItemClickListener {
+                    override fun itemClicked(epic: Epic, view: View) =
+                        contract.onItemClickListener(epic, view)
+
+                    override fun loadCompleted() {
+                        startPostponedEnterTransition()
+                    }
                 }
             }
         }
