@@ -13,6 +13,7 @@ object Utils {
 
     val numOfEpicPhotos = MutableLiveData<Int>()
     val numOfCuriosityPhotos = MutableLiveData<Int>()
+    var isFirstStart = true
 
     fun getFormattedDate(offset: Int = 0): String {
         val date = Calendar.getInstance().apply { add(Calendar.DATE, offset) }.time

@@ -23,6 +23,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.andriod.nasa.R
+import com.andriod.nasa.SplashActivity
 import com.andriod.nasa.Utils
 import com.andriod.nasa.databinding.FragmentPictureOfTheDayBinding
 import com.andriod.nasa.viewmodel.PictureViewModel
@@ -34,6 +35,17 @@ class PictureOfTheDayFragment : Fragment() {
     private val binding: FragmentPictureOfTheDayBinding get() = _binding!!
 
     private val viewModel by lazy { ViewModelProvider(this).get(PictureViewModel::class.java) }
+
+    private var isFirstStart = true
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel
+        if (Utils.isFirstStart) {
+            Utils.isFirstStart = false
+            requireActivity().startActivity(Intent(context, SplashActivity::class.java))
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
