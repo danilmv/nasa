@@ -44,4 +44,10 @@ app changes: downloadable font on Curiosity page, and Spannable on PictureOfTheD
 ### Preview
 <img src="printscreens/lesson7.png" width="32%">
 
+## Lesson8: Splash screen
+app changes: added splash screen  for 3 seconds
+
+### Preview
+<img src="printscreens/lesson8_1.png" width="32%">
+<img src="printscreens/lesson8.gif" width="32%">
 
