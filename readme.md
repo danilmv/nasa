@@ -51,3 +51,9 @@ app changes: added splash screen  for 3 seconds
 <img src="printscreens/lesson8_1.png" width="32%">
 <img src="printscreens/lesson8.gif" width="32%">
 
+## Lesson8+: fixes
+app changes: copied recycler outside viewpager ==> fixed shared element animation
+
+### Preview
+<img src="printscreens/lesson8+.gif" width="32%">
+
