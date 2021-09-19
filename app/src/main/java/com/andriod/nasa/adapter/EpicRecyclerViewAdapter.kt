@@ -1,7 +1,6 @@
 package com.andriod.nasa.adapter
 
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,9 +24,8 @@ class EpicRecyclerViewAdapter :
         fun loadCompleted()
     }
 
-    class ViewHolder(
+    inner class ViewHolder(
         parent: ViewGroup,
-        private val listener: OnItemClickListener?,
     ) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context)
         .inflate(R.layout.item_epic, parent, false)) {
 
@@ -37,13 +35,15 @@ class EpicRecyclerViewAdapter :
         init {
             listener?.let {
                 binding.imageView.setOnClickListener {
-                    listener.itemClicked(epic, binding.imageView)
+                    listener?.itemClicked(epic, binding.imageView)
                 }
             }
         }
 
         fun bind(epic: Epic) {
             this.epic = epic
+
+            binding.imageView.transitionName = epic.imageUrl
 
             Glide.with(binding.root)
                 .load(epic.imageUrl)
@@ -66,13 +66,12 @@ class EpicRecyclerViewAdapter :
                         dataSource: DataSource?,
                         isFirstResource: Boolean,
                     ): Boolean {
-                        loadCompleted()
+                        if (this@ViewHolder.epic.caption == epic.caption)
+                            loadCompleted()
                         return false
                     }
                 })
                 .into(binding.imageView)
-
-            binding.imageView.transitionName = epic.imageUrl
         }
 
         private fun loadCompleted() {
@@ -86,8 +85,7 @@ class EpicRecyclerViewAdapter :
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        ViewHolder(parent, listener)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(parent)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(epics[position])

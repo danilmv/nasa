@@ -1,14 +1,12 @@
 package com.andriod.nasa.fragment
 
 import android.os.Bundle
-import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.andriod.nasa.R
 import com.andriod.nasa.adapter.EpicRecyclerViewAdapter
 import com.andriod.nasa.databinding.FragmentRecyclerEpicBinding
 import com.andriod.nasa.entity.Epic
@@ -35,12 +33,8 @@ class EpicRecyclerViewFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        exitTransition = TransitionInflater.from(context)
-            .inflateTransition(R.transition.shared_image)
-
-        postponeEnterTransition()
-
         _binding = FragmentRecyclerEpicBinding.inflate(inflater)
+        postponeEnterTransition()
         return binding.root
     }
 
