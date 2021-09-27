@@ -45,4 +45,5 @@
     <string name="motion">motion</string>
     <string name="recycler">recycler:epic</string>
     <string name="wiki_hint">input wiki request here</string>
+    <string name="menu_recycler">recycler</string>
 </resources>

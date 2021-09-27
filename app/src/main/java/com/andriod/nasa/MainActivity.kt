@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract,
     private val fragmentPictureOfTheDay by lazy { PictureOfTheDayFragment() }
     private val fragmentSettings by lazy { SettingsFragment() }
     private val fragmentViewPager by lazy { MainViewPagerFragment() }
+    private val fragmentRecycler by lazy { EpicRecyclerViewFragment() }
 
     private var currentFragment: FragmentTags = FragmentTags.VIEW_PAGER
     private var currentTheme = Themes.DEFAULT
@@ -55,6 +56,9 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract,
                 R.id.menu_bottom_item_settings -> {
                     FragmentTags.SETTINGS
                 }
+                R.id.menu_bottom_item_recycler->{
+                    FragmentTags.RECYCLER
+                }
                 else -> {
                     return@setOnItemSelectedListener false
                 }
@@ -73,6 +77,7 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract,
                     FragmentTags.PICTURE -> fragmentPictureOfTheDay
                     FragmentTags.SETTINGS -> fragmentSettings
                     FragmentTags.VIEW_PAGER -> fragmentViewPager
+                    FragmentTags.RECYCLER -> fragmentRecycler
                 })
             .commit()
     }
@@ -94,7 +99,7 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract,
 
     companion object {
         enum class FragmentTags(val id: Int) {
-            PICTURE(0), SETTINGS(1), VIEW_PAGER(2)
+            PICTURE(0), SETTINGS(1), VIEW_PAGER(2), RECYCLER(3)
         }
 
         const val TAG = "@@MainActivity"
@@ -124,5 +129,10 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract,
             .replace(binding.mainContainer.id, FullScreenImageFragment.newInstance(epic))
             .addToBackStack(null)
             .commit()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        binding.bottomView.isVisible = true
     }
 }
