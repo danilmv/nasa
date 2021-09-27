@@ -38,4 +38,10 @@ app changes: added recyclerView with sharedElement-animation on item click; tran
 <img src="printscreens/lesson5_3.png" width="32%">
 <video src="printscreens/lesson5.mp4" width="32%"></video>
 
+## Lesson7: Texts
+app changes: downloadable font on Curiosity page, and Spannable on PictureOfTheDay page
+
+### Preview
+<img src="printscreens/lesson7.png" width="32%">
+
 

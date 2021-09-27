@@ -1,13 +1,24 @@
 package com.andriod.nasa.fragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.BackgroundColorSpan
+import android.text.style.BulletSpan
+import android.text.style.StrikethroughSpan
+import android.text.style.TypefaceSpan
 import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -33,12 +44,43 @@ class PictureOfTheDayFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
             viewModel.pictureOfTheDay.observe(viewLifecycleOwner) { picture ->
-                textView.text = picture.explanation
+                val spannable = SpannableString(picture.explanation).apply {
+                    val typedValue = TypedValue()
+                    requireActivity().theme.resolveAttribute(R.attr.colorPrimary, typedValue, true)
+
+                    setSpan(
+                        BulletSpan(20, typedValue.data),
+                        0, length,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+
+                    setSpan(BackgroundColorSpan(R.color.pink),
+                        0,
+                        50,
+                        Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+
+                    setSpan(StrikethroughSpan(),
+                        51,
+                        100,
+                        Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+
+                    val myTypeface =
+                        Typeface.create(ResourcesCompat.getFont(requireContext(), R.font.alexbrush),
+                            Typeface.BOLD)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        setSpan(TypefaceSpan(myTypeface),
+                            101,
+                            200,
+                            Spannable.SPAN_COMPOSING)
+                    }
+                }
+                textView.text = spannable
 
                 if (picture.isImage) {
                     Glide.with(root)
