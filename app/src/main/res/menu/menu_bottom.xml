@@ -6,6 +6,12 @@
         android:title="@string/menu_picture" />
 
     <item
+        android:id="@+id/menu_bottom_item_recycler"
+        android:icon="@drawable/ic_menu_list"
+        android:title="@string/menu_recycler"
+        />
+
+    <item
         android:id="@+id/menu_bottom_item_settings"
         android:icon="@drawable/ic_menu_settings"
         android:title="@string/menu_settings"

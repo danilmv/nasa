@@ -2,6 +2,7 @@ package com.andriod.nasa.fragment
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,7 @@ class FullScreenImageFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
+        _binding = FragmentImageFullScreenBinding.inflate(inflater)
         sharedElementEnterTransition = TransitionInflater.from(requireContext())
             .inflateTransition(R.transition.shared_image)
 
@@ -36,7 +38,6 @@ class FullScreenImageFragment : Fragment() {
             postponeEnterTransition()
         }
 
-        _binding = FragmentImageFullScreenBinding.inflate(inflater)
         return binding.root
     }
 
@@ -50,7 +51,6 @@ class FullScreenImageFragment : Fragment() {
 
         val epic = arguments?.getParcelable<Epic>(ARGUMENT_KEY_EPIC)
         epic?.let {
-            binding.imageView.transitionName = epic.imageUrl
             Glide.with(binding.root)
                 .load(epic.imageUrl)
                 .listener(object : RequestListener<Drawable> {
@@ -68,6 +68,9 @@ class FullScreenImageFragment : Fragment() {
                         dataSource: DataSource?,
                         isFirstResource: Boolean,
                     ): Boolean {
+                        Log.d("@@@@",
+                            "onResourceReady() called with: resource = $resource, model = $model, target = $target, dataSource = $dataSource, isFirstResource = $isFirstResource")
+                        binding.imageView.transitionName = epic.imageUrl
                         startPostponedEnterTransition()
                         return false
                     }
