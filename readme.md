@@ -29,4 +29,13 @@ app changes: added constraint-sandbox with demonstation of border, constraintCir
 <img src="printscreens/lesson4_2.png" width="32%">
 <video src="printscreens/lesson4.mp4" width="32%"></video>
 
+## Lesson5: Animation
+app changes: added recyclerView with sharedElement-animation on item click; transition-animation on image click (zoomin/out)
+
+### Preview
+<img src="printscreens/lesson5_1.png" width="32%">
+<img src="printscreens/lesson5_2.png" width="32%">
+<img src="printscreens/lesson5_3.png" width="32%">
+<video src="printscreens/lesson5.mp4" width="32%"></video>
+
 

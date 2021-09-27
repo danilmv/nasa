@@ -44,6 +44,10 @@ class MainViewPagerFragment : Fragment() {
             MainViewPagerAdapter.Page(
                 getString(R.string.motion),
                 { MotionLayoutFragment() },
+            ),
+            MainViewPagerAdapter.Page(
+                getString(R.string.recycler),
+                { EpicRecyclerViewFragment() },
             )
         )
     }

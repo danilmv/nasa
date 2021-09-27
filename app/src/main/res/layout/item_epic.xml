@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
+    app:barrierMargin="@dimen/item_margin"
+    app:cardBackgroundColor="?attr/colorPrimary"
+    app:contentPadding="@dimen/item_margin">
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="@dimen/item_picture_size"
+        android:layout_height="@dimen/item_picture_size"/>
+
+</androidx.cardview.widget.CardView>

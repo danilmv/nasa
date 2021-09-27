@@ -31,6 +31,7 @@ object RetrofitHolder {
     private var isCuriosityRequested = false
 
     private var isEpicRequested = false
+    private val epics = mutableListOf<Epic>()
 
     fun requestPicture(dayOffset: Int, listener: PictureViewModel.Listener) {
         cachePicture[dayOffset]?.let {
@@ -94,7 +95,9 @@ object RetrofitHolder {
                     ) {
                         if (response.isSuccessful) {
                             response.body()?.let {
-                                listener.onResponse(it.toList())
+                                epics.clear()
+                                epics.addAll(it)
+                                listener.onResponse(epics)
                             }
                         } else {
                             isEpicRequested = false
@@ -105,6 +108,8 @@ object RetrofitHolder {
                         isEpicRequested = false
                     }
                 })
+        }else{
+            listener.onResponse(epics)
         }
     }
 }

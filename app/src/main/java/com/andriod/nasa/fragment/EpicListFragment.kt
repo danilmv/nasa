@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager2.widget.ViewPager2
 import com.andriod.nasa.Utils
 import com.andriod.nasa.adapter.EpicListViewPagerAdapter
 import com.andriod.nasa.databinding.FragmentEpicListBinding

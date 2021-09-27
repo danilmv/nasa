@@ -1,18 +1,19 @@
 package com.andriod.nasa
 
-import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
 import com.andriod.nasa.databinding.ActivityMainBinding
-import com.andriod.nasa.fragment.MainViewPagerFragment
-import com.andriod.nasa.fragment.PictureOfTheDayFragment
-import com.andriod.nasa.fragment.SettingsFragment
+import com.andriod.nasa.entity.Epic
+import com.andriod.nasa.fragment.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
+class MainActivity : AppCompatActivity(), SettingsFragment.Contract,
+    EpicRecyclerViewFragment.Contract {
     private lateinit var binding: ActivityMainBinding
 
     private val fragmentPictureOfTheDay by lazy { PictureOfTheDayFragment() }
@@ -67,7 +68,7 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
         supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container,
+            .replace(binding.mainContainer.id,
                 when (currentFragment) {
                     FragmentTags.PICTURE -> fragmentPictureOfTheDay
                     FragmentTags.SETTINGS -> fragmentSettings
@@ -80,7 +81,6 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
         currentTheme = theme
         recreate()
     }
-
 
 
     override fun setDarkMode(isDarkMode: Boolean) {
@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
 
         const val PICTURE_FRAGMENT_TAG_NAME = "PICTURE"
 
-        enum class Themes(val id: Int){
+        enum class Themes(val id: Int) {
             DEFAULT(R.style.Theme_Nasa), RED(R.style.Theme_Nasa_Red), GREEN(R.style.Theme_Nasa_Green)
         }
     }
@@ -114,5 +114,15 @@ class MainActivity : AppCompatActivity(), SettingsFragment.Contract {
         outState.putString(KEY_CURRENT_FRAGMENT, currentFragment.name)
         outState.putString(KEY_CURRENT_THEME, currentTheme.name)
         outState.putInt(KEY_CURRENT_DARK_MODE, if (isDarkMode) 1 else 0)
+    }
+
+    override fun onItemClickListener(epic: Epic, view: View) {
+        binding.bottomView.isVisible = false
+
+        supportFragmentManager.beginTransaction()
+            .addSharedElement(view, view.transitionName)
+            .replace(binding.mainContainer.id, FullScreenImageFragment.newInstance(epic))
+            .addToBackStack(null)
+            .commit()
     }
 }
